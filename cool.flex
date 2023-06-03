@@ -74,10 +74,8 @@ OBJECT          [a-z]{ALPHANUM}*
 %%
 
 
-/*Comments*/
 --[.]* 
 
-/*Nested Comments*/
 
 "*)" {
   setError("Unmatched *)");
@@ -109,7 +107,6 @@ OBJECT          [a-z]{ALPHANUM}*
   return ERROR;
 }
 
-/* SINGLE LINE COMMENTS */
 
 "--"  { BEGIN(LINE_COMMENT) }
 
@@ -121,13 +118,11 @@ OBJECT          [a-z]{ALPHANUM}*
 }
 
 
-/*Integers*/
 {INT} {
   cool_yylval.symbol = inttable.add_string(yytext);
   return INT_CONST;
 } 
 
-/* Multiple characters operators */
 
 {DARROW}		{ return (DARROW); }
 
@@ -177,7 +172,6 @@ OBJECT          [a-z]{ALPHANUM}*
 (?i:not) { return (NOT); }
 (?i:isvoid) { return (ISVOID); }
 
-/* case sensitive keywords*/
 t(?i:rue) {
   cool_yylval.boolean = true;
   return (BOOL_CONST);
@@ -188,7 +182,6 @@ f(?i:alse) {
 }
 
 
-/* Identifiers */
 
 {TYPE} {
   cool_yylval.symbol = idtable.add_string(yytext);
@@ -234,7 +227,6 @@ f(?i:alse) {
   return ERROR;
 }
 
-/* escaped characters */
 
 <STRING>\\f {
   if(isStringTooLong()) {
@@ -277,7 +269,6 @@ f(?i:alse) {
   strcat(string_buf, &strdup(yytext)[1]);  
 }
 
-/*                     */
 <STRING><<EOF>> {
   setError("EOF in string constant");
   curr_lineno++;
@@ -306,10 +297,7 @@ f(?i:alse) {
 
 %%
 
-/*
-  lexemes: lval
 
-*/
 
 void setError(char *msg) {
   cool_yylval.error_msg = msg;
