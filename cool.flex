@@ -148,11 +148,6 @@ OBJECT          [a-z]{ALPHANUM}*
 "}" { return '}'; }
 
 
-/*
-* Keywords are case-insensitive except for the values true and false,
-* which must begin with a lower-case letter.
-*/
-()
 
 (?i:class) { return (CLASS); }
 (?i:else) { return (else); }
@@ -194,12 +189,6 @@ f(?i:alse) {
 }
 
 
-/*
-*  String constants (C syntax)
-*  Escape sequence \c is accepted for all characters c. Except for 
-*  \n \t \b \f, the result is c.
-*
-*/
 
 \" {
   BEGIN(STRING);
