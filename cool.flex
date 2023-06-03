@@ -281,6 +281,8 @@ f(?i:alse) {
 
 \n { curr_lineno++; }
 
+[ \f\r\t\v] {}
+
 . {
   setError(yytext);
   return ERROR;
