@@ -50,6 +50,10 @@ extern YYSTYPE cool_yylval;
  */
   int commentCount = 0;
   int strLen = 0;
+
+  void setError(char *msg);
+  bool isStringTooLong();
+  int strLenghtError();
 %}
 
 /*
