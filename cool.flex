@@ -102,7 +102,7 @@ OBJECT          [a-z]{ALPHANUM}*
 
 <COMMENT>. {}
 
-<COMMENT>\n {curr_lineno++}
+<COMMENT>\n {curr_lineno++;}
 
 <COMMENT><<EOF>> {
   setError("EOF in comment");
@@ -112,7 +112,7 @@ OBJECT          [a-z]{ALPHANUM}*
 }
 
 
-"--"  { BEGIN(LINE_COMMENT) }
+"--"  { BEGIN(LINE_COMMENT); }
 
 <LINE_COMMENT>. {}
 
@@ -154,7 +154,7 @@ OBJECT          [a-z]{ALPHANUM}*
 
 
 (?i:class) { return (CLASS); }
-(?i:else) { return (else); }
+(?i:else) { return (ELSE); }
 (?i:fi) { return (FI); }
 (?i:if) { return (IF); }
 (?i:in) { return (IN); }
@@ -279,7 +279,7 @@ f(?i:alse) {
 
 
 
-\n { curr_lineno++ }
+\n { curr_lineno++; }
 
 . {
   setError(yytext);
