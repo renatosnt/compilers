@@ -186,8 +186,13 @@ expr          :   OBJECTID ASSIGN expr                            { $$ = assign(
               ;    
 
 
-let_expr      :   OBJECTID ':' TYPEID IN expr { $$ = let($1, $3, no_expr(), $5); }
-              |   OBJECTID ':' TYPEID ASSIGN expr IN expr { $$ = let($1, $3, $5, $7); }
+let_expr      :   OBJECTID ':' TYPEID IN expr                   { $$ = let($1, $3, no_expr(), $5); }
+              |   OBJECTID ':' TYPEID ASSIGN expr IN expr       { $$ = let($1, $3, $5, $7); }
+              |   OBJECTID ':' TYPEID ',' let_expr              { $$ = let($1, $3, no_expr(), $5); }
+              |   OBJECTID ':' TYPEID ASSIGN expr ',' let_expr  { $$ = let($1, $3, $5, $7); }
+              |   error IN expr                                 { yyclearin; $$ = NULL; }
+              |   error ',' let_expr                            { yyclearin; $$ = NULL; }
+              ;
 
 
 block_expr    :   expr ';'              { $$ = single_Expressions($1); }
