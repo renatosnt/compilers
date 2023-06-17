@@ -1,10 +1,11 @@
-class X {
+class A {
 };
 
-class Y inherits X {
+class BB__ inherits A {
+
 };
 
-class Z inherits Y {
+class C inherits IO {
     num1: Int <- 10;
     num2: Int <- 20;
     str: String <- "Hello, world!";
