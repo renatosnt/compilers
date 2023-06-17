@@ -150,6 +150,8 @@ feature       :   OBJECTID '(' formal_list ')' ':' TYPEID '{' expr '}' { $$ = me
 
 formal_list   :   formal                 { $$ = single_Formals($1); }
               |   formal_list ',' formal { $$ = append_Formals($1, single_Formals($3)); }
+              |   { $$ = nil_Formals(); }
+              ;
 
 
 formal        :   OBJECTID ':' TYPEID { $$ = formal($1, $3); }
