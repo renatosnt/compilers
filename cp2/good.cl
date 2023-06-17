@@ -1,77 +1,71 @@
-class A {
-}; 
-Class BB__ inherits A {
+class X {
 };
 
-Class C inherits IO {
-   b1 : Bool; -- default false
-   b2 : Bool <- true;
-   numone : Int <- 3;
-   numtwo : Int <- numone + 5 * 3;
-   numthr : Int <- (numtwo + 1) * 2;
-   a(num1 : Int, str2: String) : Int {
-   	out_string("hello world")
-   };
-   b(num1 : Int) : String {
-   	if isvoid numtwo then out_string("is void") else out_string("is not void") fi
-   };
-   c() : String {
-   	if not isvoid numone then out_string("is not void") else out_string("is void") fi
-   };
-   d() : SELF_TYPE {
-   	while ~numone < 0 loop self pool
-   };
-   e() : Object {
-    case 1=2 of
-        b1 : Bool => true;
-    esac
-    };
-   f() : Object {
-    case 1=2 of
-        b1 : Bool => true;
-        b2 : Bool => true;
-    esac
-    };
-   g() : Object {
-       { out_string("hi");}
-   };
-   h() : Object { -- multiple output
-       {
-        out_string("hi");
-        out_string("and bye");
-       }
-   };
-   let1() : Object { -- single let w/o init
-       let n1 : Int in {
-            numone <- n1 + 3;
-       }
-   };
-   let2() : Object { -- single let w init
-       let n1 : Int <- 3 in {
-            numone <- n1 + 4;
-       }
-   };
-   let3() : Object { -- muliple let
-       let n1 : Int <- 3,
-           n2 : Int <- 4 in {
-            numone <- n1 + n2;
-       }
-   };
-   let4() : Object {
-       let n1 : Int,
-           n2 : Int in {
-            numone <- n1 + n2;
-       }
-   };
+class Y inherits X {
 };
-Class D inherits C {
-   bb : Bool <- true;
-   bc : Bool <- not bb;
-   ii : Int <- 5;
-   jj : Int <- ~ii; -- integer compliment
-   cc : C <- new C;
-   dd : C; -- should be void
-   oo : Object <- cc;
-   ss : String <- "Diiv and Minyoon";
-   vo : Bool <- isvoid dd;
+
+class Z inherits Y {
+    num1: Int <- 10;
+    num2: Int <- 20;
+    str: String <- "Hello, world!";
+    
+    a() : String {
+        out_string("This is method A.");
+    };
+    
+    b() : Int {
+        let x : Int <- num1 + num2 in {
+            out_string("The sum of num1 and num2 is ");
+            out_int(x);
+            x;
+        }
+    };
+    
+    c() : X {
+        case 1 = 1 of
+            x : X => x;
+        esac
+    };
+    
+    d() : X {
+        case 1 = 2 of
+            x : X => x;
+            y : Y => y;
+        esac
+    };
+    
+    e() : Object {
+        {
+            out_string("Printing numbers:");
+            out_int(num1);
+            out_int(num2);
+        }
+    };
+    
+    f() : Object {
+        {
+            out_string("Printing string:");
+            out_string(str);
+        }
+    };
+    
+    g() : Object {
+        let y : Y <- new Y in {
+            out_string("Created a new instance of Y.");
+        }
+    };
+    
+    h() : Object {
+        {
+            out_string("Method H - Part 1");
+            out_string("Method H - Part 2");
+        }
+    };
+    
+    i() : Object {
+        let n : Int <- 5 in {
+            out_string("The value of n is ");
+            out_int(n);
+        }
+    };
 };
