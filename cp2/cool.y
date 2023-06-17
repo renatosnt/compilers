@@ -158,10 +158,10 @@ formal        :   OBJECTID ':' TYPEID { $$ = formal($1, $3); }
 expr          :   OBJECTID ASSIGN expr                            { $$ = assign($1, $3); }
               |   expr '.' OBJECTID '(' expr_list ')'             { $$ = dispatch($1, $3, $5); }
               |   expr '@' TYPEID '.' OBJECTID '(' expr_list ')'  { $$ = static_dispatch($1, $3, $5, $7); }
-              |   OBJECTID '(' expr_list ')'                      { $$ = dispatch(object(idtable.add_string("self")), $1, $3)}
+              |   OBJECTID '(' expr_list ')'                      { $$ = dispatch(object(idtable.add_string("self")), $1, $3); }
               
               |   IF expr THEN expr ELSE expr FI        { $$ = cond($2, $4, $6); }
-              |   WHILE expr LOOP expr POOL             { $$ = loop(%2, %4); }
+              |   WHILE expr LOOP expr POOL             { $$ = loop($2, $4); }
               |   '{' block_expr '}'                    { $$ = block($2); }
               |   LET let_expr                          { $$ = $2; }
               |   CASE expr OF case_list ESAC           { $$ = typcase($2, $4); }
@@ -199,7 +199,7 @@ expr_list     :   expr                  { $$ = single_Expressions($1); }
               ;
 
 case_list     :   case            { $$ = single_Cases($1); }
-              |   expr_list case  { $$ = append_Cases($1, single_Cases($2)); }
+              |   case_list case  { $$ = append_Cases($1, single_Cases($2)); }
               ;
 
 case          : OBJECTID ':' TYPEID DARROW expr ';' { $$ = branch($1, $3, $5); }
