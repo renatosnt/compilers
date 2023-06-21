@@ -89,14 +89,17 @@ int omerrs = 0;               /* number of errors in lexing and parsing */
 %type <class_> class
 
 /* You will want to change the following line. */
-%type <features> features_list features
+%type <features> features_list
+%type <features> features
 %type <feature> feature
 %type <formals> formal_list
 %type <formal> formal
 %type <cases> case_list
 %type <case_> case
-%type <expressions> block_expr expr_list
-%type <expression> expr let_expr
+%type <expressions> block_expr
+%type <expressions> expr_list
+%type <expression> expr 
+%type <expression> let_expr
 /* Precedence declarations go here. */
 
   /* All binary operations are left-associative, with the exception of assignment, which is right-associative,
