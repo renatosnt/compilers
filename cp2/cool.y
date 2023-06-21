@@ -132,6 +132,9 @@ class_list    : class			/* single class */
 /* If no parent is specified, the class inherits from the Object class. */
 class	        : CLASS TYPEID '{' features_list '}' ';'  { $$ = class_($2,idtable.add_string("Object"),$4,stringtable.add_string(curr_filename)); }
               | CLASS TYPEID INHERITS TYPEID '{' features_list '}' ';'  { $$ = class_($2,$4,$6,stringtable.add_string(curr_filename)); }
+              | CLASS TYPEID '{' error '}' ';' { yyclearin; $$ = NULL; }
+              | CLASS error '{' features_list '}' ';' { yyclearin; $$ = NULL; }
+              | CLASS error '{' error '}' ';' { yyclearin; $$ = NULL; }
               ;
 
 /* Feature list may be empty, but no empty features in list. */
@@ -197,7 +200,7 @@ let_expr      :   OBJECTID ':' TYPEID IN expr                   { $$ = let($1, $
 
 block_expr    :   expr ';'              { $$ = single_Expressions($1); }
               |   block_expr expr ';'   { $$ = append_Expressions($1, single_Expressions($2)); }
-              |   error ';'             { yyclearin; }
+              |   error ';'             { yyclearin; $$ = NULL; }
               ;
 
 expr_list     :   expr                  { $$ = single_Expressions($1); }
