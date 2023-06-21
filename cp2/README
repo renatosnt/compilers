@@ -132,3 +132,12 @@ Instructions
 
 Write-up for PA3
 ----------------
+
+Renato Silva Santos - 2020006981
+
+Nessa etapa do projeto de desenvolvimento de um compilador, foi implementado um parser utilizando a ferramenta Bison para a linguagme COOL.
+O parser consiste em um conjunto de regras de gramática que definem a sintaxe da linguagem. As regras são organizadas em não-terminais, que representam construções sintáticas na linguagem. Cada não-terminal possui um tipo semântico, que representa o tipo de valor que é produzido pela regra. Os tipos semânticos são definidos usando a diretiva %type do Bison.
+
+O parser também define regras de precedência para operadores na linguagem. As regras de precedência são usadas para resolver ambiguidades na gramática. Por exemplo, o operador "*" tem maior precedência que o operador "+", então expressões como "2 + 3 * 4" são analisadas como "2 + (3 * 4)".
+
+As regras da gramática definem a estrutura do AST. Cada regra gera um nó na AST, que representa uma construção específica na linguagem. Nas regras também foram incluídas produções que tratam possíveis erros.
